@@ -3,6 +3,9 @@ FROM golang AS builder
 COPY serial/ /src/serial/
 WORKDIR /src/serial
 
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.cn,https://goproxy.io,https://mirrors.aliyun.com/goproxy/,https://athens.azurefd.net,direct
+
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /src/serial/main .
 
